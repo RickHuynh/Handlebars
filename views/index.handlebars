@@ -1,1 +1,43 @@
-<h1>Burgers!</h1>
+<h1>Burgers to Eat</h1>
+
+<form action="/">
+    <p>New Burger</p>
+    <input type="text" id="burger">
+    <input type="submit" id="submit">
+</form>
+<div>
+    <div style="float:left;">
+        <ul>
+            {{#each burgers}} {{#unless this.devoured}}
+            <li>
+                <h2>{{this.name}}</h2>
+
+                <form action="/{{this.id}}-{{this.devoured}}?_method=PUT" method="POST">
+                    <button type="submit">DEVOUR!</button>
+                </form>
+
+            </li>
+            {{/unless}} {{/each}}
+        </ul>
+    </div>
+    <div style="float:right;">
+        <ul>
+            {{#each burgers}} {{#if this.devoured}}
+            <li>
+                <h2>{{this.name}}</h2>
+
+            </li>
+            {{/if}} {{/each}}
+        </ul>
+    </div>
+
+</div>
+
+<script>
+    $("#submit").on("click", function () {
+        var burgerVal = $('#burger').val();
+        $.post("http://localhost:4000/burgers", { name: burgerVal }, function (data) {
+            console.log("Making Burger");
+        });
+    })
+</script>

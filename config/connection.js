@@ -14,9 +14,6 @@ connection.connect(function(err){
         console.error("error connecting: " + err.stack);
         return;
     }
-    connection.query("select * from burgers", function(err,result){
-        console.log(result);
-    })
 });
 
 module.exports = connection;

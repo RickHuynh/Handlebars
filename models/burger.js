@@ -6,13 +6,20 @@ var burger = {
             cb(res);
         })
     },
-    create: function (cb) {
+    create: function (cols, vals, cb) {
         orm.create(cols, vals, function (res) {
             cb(res);
         })
     },
-    update: function (cb) {
-        orm.update(condObj, posObj, function (res) {
+    update: function (condObj, posObj, cb) {
+        if(condObj.devoured == "1"){
+            var condition = 0;
+        }else{
+            var condition = 1;
+        }
+        orm.update({
+            devoured: condition
+        }, posObj, function (res) {
             cb(res);
         })
     }
